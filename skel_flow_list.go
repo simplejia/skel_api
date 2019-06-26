@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/simplejia/utils"
-	"github.com/simplejia/lib"
 )
 
 // SkelFlowListReq 定义输入
@@ -38,8 +37,8 @@ type SkelFlowListResp struct {
 	Total  int     `json:"total,omitempty"`
 }
 
-func SkelFlowList(name string, req *SkelFlowListReq, trace *lib.Trace) (resp *SkelFlowListResp, result *lib.Resp, err error) {
-	addr, err := lib.NameWrap(name)
+func SkelFlowList(name string, req *SkelFlowListReq, trace *utils.Trace) (resp *SkelFlowListResp, result *utils.Resp, err error) {
+	addr, err := utils.NameWrap(name)
 	if err != nil {
 		return
 	}
@@ -61,7 +60,7 @@ func SkelFlowList(name string, req *SkelFlowListReq, trace *lib.Trace) (resp *Sk
 	}
 
 	s := &struct {
-		lib.Resp
+		utils.Resp
 		Data *SkelFlowListResp `json:"data"`
 	}{}
 	err = json.Unmarshal(body, s)
@@ -69,7 +68,7 @@ func SkelFlowList(name string, req *SkelFlowListReq, trace *lib.Trace) (resp *Sk
 		return
 	}
 
-	if s.Ret != lib.CodeOk {
+	if s.Ret != utils.CodeOk {
 		result = &s.Resp
 		return
 	}

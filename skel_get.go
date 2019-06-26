@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/simplejia/utils"
-	"github.com/simplejia/lib"
 )
 
 // SkelGetReq 定义输入
@@ -27,8 +26,8 @@ func (skelGetReq *SkelGetReq) Regular() (ok bool) {
 // SkelGetResp 定义输出
 type SkelGetResp Skel
 
-func SkelGet(name string, req *SkelGetReq, trace *lib.Trace) (resp *SkelGetResp, result *lib.Resp, err error) {
-	addr, err := lib.NameWrap(name)
+func SkelGet(name string, req *SkelGetReq, trace *utils.Trace) (resp *SkelGetResp, result *utils.Resp, err error) {
+	addr, err := utils.NameWrap(name)
 	if err != nil {
 		return
 	}
@@ -50,7 +49,7 @@ func SkelGet(name string, req *SkelGetReq, trace *lib.Trace) (resp *SkelGetResp,
 	}
 
 	s := &struct {
-		lib.Resp
+		utils.Resp
 		Data *SkelGetResp `json:"data"`
 	}{}
 	err = json.Unmarshal(body, s)
@@ -58,7 +57,7 @@ func SkelGet(name string, req *SkelGetReq, trace *lib.Trace) (resp *SkelGetResp,
 		return
 	}
 
-	if s.Ret != lib.CodeOk {
+	if s.Ret != utils.CodeOk {
 		result = &s.Resp
 		return
 	}

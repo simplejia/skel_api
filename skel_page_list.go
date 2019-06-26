@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/simplejia/utils"
-	"github.com/simplejia/lib"
 )
 
 // SkelPageListReq 定义输入
@@ -38,8 +37,8 @@ type SkelPageListResp struct {
 	Total  int     `json:"total,omitempty"`
 }
 
-func SkelPageList(name string, req *SkelPageListReq, trace *lib.Trace) (resp *SkelPageListResp, result *lib.Resp, err error) {
-	addr, err := lib.NameWrap(name)
+func SkelPageList(name string, req *SkelPageListReq, trace *utils.Trace) (resp *SkelPageListResp, result *utils.Resp, err error) {
+	addr, err := utils.NameWrap(name)
 	if err != nil {
 		return
 	}
@@ -61,7 +60,7 @@ func SkelPageList(name string, req *SkelPageListReq, trace *lib.Trace) (resp *Sk
 	}
 
 	s := &struct {
-		lib.Resp
+		utils.Resp
 		Data *SkelPageListResp `json:"data"`
 	}{}
 	err = json.Unmarshal(body, s)
@@ -69,7 +68,7 @@ func SkelPageList(name string, req *SkelPageListReq, trace *lib.Trace) (resp *Sk
 		return
 	}
 
-	if s.Ret != lib.CodeOk {
+	if s.Ret != utils.CodeOk {
 		result = &s.Resp
 		return
 	}

@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/simplejia/utils"
-	"github.com/simplejia/lib"
 )
 
 // SkelDelReq 定义输入
@@ -28,8 +27,8 @@ func (skelDelReq *SkelDelReq) Regular() (ok bool) {
 type SkelDelResp struct {
 }
 
-func SkelDel(name string, req *SkelDelReq, trace *lib.Trace) (resp *SkelDelResp, result *lib.Resp, err error) {
-	addr, err := lib.NameWrap(name)
+func SkelDel(name string, req *SkelDelReq, trace *utils.Trace) (resp *SkelDelResp, result *utils.Resp, err error) {
+	addr, err := utils.NameWrap(name)
 	if err != nil {
 		return
 	}
@@ -51,7 +50,7 @@ func SkelDel(name string, req *SkelDelReq, trace *lib.Trace) (resp *SkelDelResp,
 	}
 
 	s := &struct {
-		lib.Resp
+		utils.Resp
 		Data *SkelDelResp `json:"data"`
 	}{}
 	err = json.Unmarshal(body, s)
@@ -59,7 +58,7 @@ func SkelDel(name string, req *SkelDelReq, trace *lib.Trace) (resp *SkelDelResp,
 		return
 	}
 
-	if s.Ret != lib.CodeOk {
+	if s.Ret != utils.CodeOk {
 		result = &s.Resp
 		return
 	}
